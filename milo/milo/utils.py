@@ -363,7 +363,7 @@ def setup(args, ask_prompt=True):
             print('Dynamics directory already exists...')
             load_dynamics = True
     else:
-        False
+        load_dynamics=False
     # ==============Creating dynamic experiment subdirectories==============#
     dynamic_logs_dir = osp.join(dynamic_experiment_dir, 'logs')
     dynamic_tensorboard_dir = osp.join(dynamic_experiment_dir, 'tensorboard_logs')
