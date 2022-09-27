@@ -26,6 +26,7 @@ It is recommended to create a new conda environment and installing the necessary
 conda create -n <name> python=3.7
 conda install -c conda-forge bullet=2.88 eigen=3.3.7 freeglut=3.0.0 glew=2.1.0 gdown tqdm gym matplotlib tabulate swig tensorflow=1.13.1 
 conda install -c pytorch pytorch
+conda install -c anaconda scipy
 pip install mpi4py PyOpenGL PyOpenGL_accelerate tensorboard==2.10.0
 ```
 If conda get stucks at solving environment or times out, try installing the packages from the ```conda-forge``` channel one at a time.
@@ -69,6 +70,7 @@ Follow the following commands.
 conda create -n <name> python=3.7
 conda install -c conda-forge gdown tqdm gym matplotlib tabulate tensorflow=1.13.1 
 conda install -c pytorch pytorch
+conda install -c anaconda scipy
 pip install mpi4py PyOpenGL_accelerate tensorboard==2.10.0
 ```
 Do not install PyOpenGL directly from pip as the version downloaded (for python 3.7) is missing the freeglut DLL. Instead, download the pacakge wheel `PyOpenGL-3.1.6-cp37-cp37m-win_amd64.whl` from the [Unofficial Windows Binaries for Python Extension Packages](https://www.lfd.uci.edu/~gohlke/pythonlibs/#pyopengl). Once this is downloaded, install the wheel:
