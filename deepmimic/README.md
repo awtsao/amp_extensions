@@ -111,9 +111,7 @@ For future use cases, the function `record_amp_obs_agent_current` was added whic
 
 
 ## DeepMimicCore FAQ
-The easiest way to understand how DeepMimicCore is to utilize the debugger. This section will serve as a sort of directory.
-
-
+The easiest way to understand how DeepMimicCore is to utilize the debugger or step through the code to understand the flow of the code. This section will serve as a very-high level directory/guide for DeepMimicCore. This will be added to as times goes on. 
 
 ### Kinematic Character
 The kinematic character contains information about the reference motion. The relevant file for the kinematic character is `KinCharacter.cpp`. The controller for the kinematic character can be found in `KinController.cpp` and contains the reference motion itself. The way the simulated character is reset is by first loading the relevant frame from the reference motion onto the kinematic character and then syncing the simulated character with the kinematic character. To add noise, noise is added to the internal state and velocity of the kinematic character (see `AddNoise` in `KinController.cpp`). 
