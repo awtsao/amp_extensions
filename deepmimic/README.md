@@ -110,5 +110,23 @@ The original AMP framework uses the function `record_amp_obs_agent` in `deepmimi
 For future use cases, the function `record_amp_obs_agent_current` was added which simply returns the features (for both the pose and velocity) of the current state. 
 
 
-## A guide to DeepMimicCore
-Todo...
+## DeepMimicCore FAQ
+The easiest way to understand how DeepMimicCore is to utilize the debugger. This section will serve as a sort of directory.
+
+
+
+### Kinematic Character
+The kinematic character contains information about the reference motion. The relevant file for the kinematic character is `KinCharacter.cpp`. The controller for the kinematic character can be found in `KinController.cpp` and contains the reference motion itself. The way the simulated character is reset is by first loading the relevant frame from the reference motion onto the kinematic character and then syncing the simulated character with the kinematic character. To add noise, noise is added to the internal state and velocity of the kinematic character (see `AddNoise` in `KinController.cpp`). 
+
+Information about the joints, links, etc., are retrieved using `KinTree.cpp`. 
+
+### Simulated Chatacter
+The simulated character is represented with `SimCharacter.cpp`. Like with the kinematic character, this class contains functions about its position, rotation, velocity, etc. It also contains information about the simulated links and simulated joints (see `mBodyParts` and `mJoints` in `SimCharacter.cpp`). The links and joints are represented by `SimBodyLink.cpp` and `SimJoint.cpp`. These links and joints can be differnet shapes (see `SimCapsule.cpp, SimSphere.cpp, SimObj.cpp`). 
+
+To understand the controller, it is recommended to look at the 4 controller files `Controller.cpp, DeepMimicCharController.cpp, CtController,cpp, CtPDController.cpp`. The hierarcy of inheritance is as listed with `Controller.cpp` being the parent. 
+
+When recording the state (i.e., for use in RL), the functions used are `BuildStatePose` and `BuildStateVel` in `CtController.cpp`. These are also implemented in `DeepMimicCharController.cpp` but `CtController.cpp` is used as it is the child. 
+
+### Scenes
+These scene files take care of loading the world, characters, etc., and provide many utility functions. For example, `SceneImitateAmp.cpp` consists of functions for computing the DTW cost, recording features for the agent and expert for the discriminator, etc.
+
