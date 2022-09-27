@@ -123,8 +123,21 @@ The simulated character is represented with `SimCharacter.cpp`. Like with the ki
 
 To understand the controller, it is recommended to look at the 4 controller files `Controller.cpp, DeepMimicCharController.cpp, CtController,cpp, CtPDController.cpp`. The hierarcy of inheritance is as listed with `Controller.cpp` being the parent. 
 
-When recording the state (i.e., for use in RL), the functions used are `BuildStatePose` and `BuildStateVel` in `CtController.cpp`. These are also implemented in `DeepMimicCharController.cpp` but `CtController.cpp` is used as it is the child. 
+When recording the state (i.e., for use in RL), the functions used are `RecordState` in `DeepMimicCharController.cpp`. These call `BuildStatePose` and `BuildStateVel` which use the implementation in `CtController.cpp`. These are also implemented in `DeepMimicCharController.cpp` but `CtController.cpp` is used as it is the child. 
+
+#### Recording the state
+As mentioned above, the state consists information about the pose and velocity of the character. If the scene is of type DeepMimic, then the phase information is also involved. From top to bottom, the information in the state vector consists of the phase, pose, and finally the velocity information. 
+#### Pose
+For the pose, `BuildStatePose` first builds the `origin_trans` which is the `world-to-origin` transform that transforms world coordinates to origin coordinates. The origin coordinate system is centered at the point right under the root of the character on th xz plane with x-axis aligned along the character's heading. This transform can essentially be used to compute coordinates as seen from the characters "point-of-view". Note that only the x- and z- coordinates will change when transforming the world coordinates to origin coordinates so the y-coordinates stay the same. 
+
+From here, `BuildStatePose` iterates through each link in the character (see `humanoid3d.txt` to see which ID corresponds to which joint/link/body part) and computes its relative position compared to the root joint in the origin coordinate system as well as its rotation in the origin coordinate system. There are two steps for computing this relative position. First, the world position fo the root is multiplied by the `world-to-origin` transform to get the coordinates of the link in the origin coordinate system. Finally, the coordinates for the root joint (in the origin coordinate) system are subtracted from the link's coordinates to get the relative coordinates. Note that the x- and z- origin coordiantes for the root joint position are 0 since the origin coordinate system is cenetered at the root.
+
+The rotation internaally is usually represented by 4D quaternions. However, when recording the state, the rotation is represented by two vectors: the norm and tangent vectors. The third axis of rotation can be determined using the cross product between the norm and tangent vector so these two vectors are sufficient for specifying a rotation. 
+#### Velocity
+The velocity is recorded in a similar fashion. The state contains information about the linear and angular velocity of each link in the origin coordinate system. Both are represented with 3D vectors. 
+
+
 
 ### Scenes
-These scene files take care of loading the world, characters, etc., and provide many utility functions. For example, `SceneImitateAmp.cpp` consists of functions for computing the DTW cost, recording features for the agent and expert for the discriminator, etc.
+These scene files take care of loading the world, characters, etc., and provide many utility functions. For example, `SceneImitateAmp.cpp` consists of functions for computing the DTW cost, recording features for the agent and expert for the discriminator, etc. 
 
