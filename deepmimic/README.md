@@ -39,7 +39,12 @@ For example,
 python mpi_run.py --arg_file args/train_humanoid3d_spinkick_args.txt --num_workers 16
 ```
 
-will train a policy to perform a spinkick using 16 workers. As training progresses, it will regularly
+will train a policy to perform a spinkick using 16 workers. **If using OpenMPI, this may not work as `mpi_run.py` uses the subprocess module which may not be compatiable with mpi when using OpenMPI. Instead of running the above command, try running the following**:
+```
+mpiexec -n 16 python DeepMimic_Optimizer.py --arg_file args/train_amp_humanoid3d_spinkick_args.txt
+```
+
+As training progresses, it will regularly
 print out statistics and log them to `output/` along with a `.ckpt` of the latest policy.
 It typically takes about 60 millions samples to train one policy, which can take a day
 when training with 16 workers. 16 workers is likely the max number of workers that the
