@@ -1,5 +1,5 @@
 # amp_extensions
-This repo contains the code for (AMP/DeepMimic)(https://github.com/xbpeng/DeepMimic). Code was added to adapt it to the OpenAI Gym environment (see ```gym-deepmimic```). To test this framework, code was adapted from [MILO](https://github.com/jdchang1/milo) and a new gym environment was created to hold the dynamics model (see ```gym-simenv```). 
+This repo contains the code for (AMP/DeepMimic)(https://github.com/xbpeng/DeepMimic) and its extensions. My thesis work was about imitation learning for simulated characters and the framework I focused on was AMP. The original code was added to adapt it to the OpenAI Gym environment (see ```gym-deepmimic```). To test this framework, code was adapted from [MILO](https://github.com/jdchang1/milo) and a new gym environment was created to hold the dynamics model (see ```gym-simenv```). 
 
 ## Setup
 Follow the [setup instructions](setup.md) before getting started. You can follow the original instructions for [DeepMimic](https://github.com/xbpeng/DeepMimic) and [MILO](https://github.com/jdchang1/milo) separately but the setup instructions should have everything necessary. 
